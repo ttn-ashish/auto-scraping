@@ -6,7 +6,7 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 import puppeteer from 'puppeteer';
 
 const platformUrls = {
-    amazon:{
+    amazon: {
         url: 'https://amazon.com',
         search_box: '#twotabsearchtextbox',
         search_list: ".s-result-item .s-card-border",
@@ -21,11 +21,11 @@ const platformUrls = {
 app.get('/', async (req: Request, res: Response) => {
     (async () => {
         try {
-            const platformName: any = req.query.platform;
+            const platformName: any = req.query.platform || 'amazon';
             const searchTerm: any = req.query.search_key;
             const records: any = req.query.records || 3;
             if (!platformName || !searchTerm) {
-                res.json("Incomplete Request");
+                res.json("Search Key is missing");
                 return;
             }
             const platform = platformUrls[platformName];
@@ -80,7 +80,7 @@ app.get('/', async (req: Request, res: Response) => {
                 ]
             });
 
-            csvWriter.writeRecords(finalList)  
+            csvWriter.writeRecords(finalList)
                 .then(async () => {
                     let filePath = path.join(__dirname, "../search-result.csv");
                     res.download(filePath);
