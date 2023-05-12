@@ -1,5 +1,5 @@
 import { describe, expect } from "@jest/globals";
-
+import { MainController } from "../src/controllers/main.controller";
 const mockRequest = () => {
   const req: any = {};
   req.body = jest.fn().mockReturnValue(req);
@@ -17,7 +17,6 @@ const mockResponse = () => {
   return res;
 };
 
-import { MainController } from "./src/controllers/main.controller";
 const mainController = new MainController();
 describe("Main Controller => scrapProducts", () => {
   it("should print Search Key is missing if search_key is empty or missing", async () => {
