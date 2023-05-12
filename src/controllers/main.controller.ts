@@ -66,7 +66,6 @@ export class MainController {
             csvWriter.writeRecords(finalList)
                 .then(async () => {
                     let filePath = path.join(__dirname, "../../search-result.csv");
-                    console.log("🚀 ~ file: main.controller.ts:69 ~ MainController ~ .then ~ filePath:", filePath);
                     res.download(filePath);
                     await browser.close();
                 });
